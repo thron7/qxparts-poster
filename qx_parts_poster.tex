@@ -59,7 +59,7 @@
 % Name and authors of poster/paper/research
 %-----------------------------------------------------------
 
-\title{qooxdoo 3 Parts}
+\title{qooxdoo 3 Part Handling}
 \author{Thomas Herchenr\"oder}
 \institute{1\&1 Internet AG}
 
@@ -72,114 +72,125 @@
   \begin{columns}[t]												% the [t] option aligns the column's content at the top
     \begin{column}{\sepwid}\end{column}			% empty spacer column
     \begin{column}{\onecolwid}
-      \begin{block}{Requirements of the Template}
-        In order for your poster to compile properly, up-to-date versions of the following packages are required:
-        \vskip1ex
-        \begin{itemize}
-          \item latexbeamer
-          \item pgf (Tikz)
-          \item beamerposter
-        \end{itemize}
-        \vskip1ex
-        All of those packages are contained in both the MikTeX and the TexLive distribution of LaTeX.
+      \begin{block}{Parts}
+        \textit{Parts} are a means to \textit{logically} partition a qooxdoo
+        application, so that those parts can be loaded \textit{incrementally}
+        and \textit{on demand}. Parts are defined by the user through
+        configuration entries. The \textit{Generator} uses this configuration to
+        distribute class code and resource information across multiple script
+        files that are then retrieved via HTTP. The aim is to avoid loading
+        of unnecessary code into the browser.
       \end{block}
       \vskip2ex
-      \begin{block}{A Standard Block}
-        The standard block environment looks like this. It has justified text and a green title with an underline. You can create one like so:
-        \begin{semiverbatim}
-          {\color{red}\\begin}\{{\color{blue}block}\}\{Title\}\newline
-          \hskip1ex.......\newline
-          {\color{red}\\end}\{{\color{blue}block}\}
-        \end{semiverbatim}
+      \begin{block}{Concepts}
+        In order to package the classes of an application (including classes of
+        the framework, contribs and any additional libraries) in a way that
+        makes for efficient loading, the Generator collects class code into
+        \textit{scripts} (.js files). Scripts are grouped into
+        \textit{packages}. Scripts of the same package are always loaded
+        at the same time (if with multiple HTTP requests). Each \textit{part} is
+        implemented by a collection of packages, and a package might be required
+        by multiple parts. qooxdoo's \textit{PartLoader} loads all packages for
+        a part that has been \textit{require}'d, and have not been loaded yet.
+        \begin{figure}
+          \begin{center}
+            \includegraphics[width=10in]{g_relations.jpg} \\
+            \caption{Relations between parts, packages, scripts and classes.}
+            \label{fig:corrSubsys}
+          \end{center}
+        \end{figure}
       \end{block}
       \vskip2ex
-      \begin{alertblock}{An ``Alert'' Block}
-        The ``alert'' block environment looks like this. It also has justified text, but it has a border and a light background to make it stand out. You can create one like so:
-        \begin{semiverbatim}
-          {\color{red}\\begin}\{{\color{blue}alertblock}\}\{Title\}\newline
-          \hskip1ex.......\newline
-          {\color{red}\\end}\{{\color{blue}alertblock}\}
-        \end{semiverbatim}
-      \end{alertblock}
     \end{column}
 
     \begin{column}{\sepwid}\end{column}			% empty spacer column
-    \begin{column}{\threecolwid}					  % create a three-column-wide column and then we will split it up later
-      \begin{block}{Altering Column Spans}
-        You can make columns that span multiple other columns relatively easily. Lengths are defined in the template that make columns look normal-ish if you want to use a four-column layout like this poster. If you want to use a different number of columns, you will have to modify those lengths accordingly at the top of the poster.tex file.
-        
-        In particular, near the top of the TeX file you will see lines that look like:
-        \begin{semiverbatim}
-          \hskip1ex\\setlength\{\\sepwid\}\{0.024\\paperwidth\}
-          
-          \hskip1ex\\setlength\{\\onecolwid\}\{0.22\\paperwidth\}
-          
-          \hskip1ex\\setlength\{\\twocolwid\}\{0.464\\paperwidth\}
-          
-          \hskip1ex\\setlength\{\\threecolwid\}\{0.708\\paperwidth\}
-        \end{semiverbatim}
-        
-        Set ``sepwid'' to be some small length somewhere near 0.025 (this is the space between columns). Then if $n$ is the number of columns you want, you should set
-        \begin{align*}
-          \text{onecolwid} & = \frac{1}{n}(1-(n+1)\times\text{sepwid}), \\
-          \text{twocolwid} & = 2\times\text{onecolwid} + \text{sepwid}, \\
-          \text{threecolwid} & = 3\times\text{onecolwid} + 2\times\text{sepwid}.
-        \end{align*}
+    \begin{column}{\onecolwid}
+      \begin{block}{2-Phase Package Calculation}
+        The essence of the realization of parts is the calculation which classes should
+        belong to which package. Everything else is derived from that. The
+        package calculation process is devided in two steps:
+        \begin{itemize}
+          \item partition the set of code classes into \textbf{equivalence
+            sets} \\
+            This means grouping all classes together that are \textit{required by the
+            same set of parts}. These groups will be the initial packages. There
+            will usually be a large number of them, some with only a few classes.
+          \item \textbf{collapsing} (or merging) those packages together, so
+            that bigger packages can be fetched with fewer HTTP requests,
+            while still preserving that no unnecessary code is loaded into the
+            browser.\\
+            This will significantly reduce the total number of packages.
+        \end{itemize}
       \end{block}
-      \begin{columns}[t,totalwidth=\threecolwid]	% split up that three-column-wide column
-        \begin{column}{\onecolwid}
-          \setbeamercolor{block title}{fg=red,bg=white}%frame color
-          \setbeamercolor{block body}{fg=black,bg=white}%body color
-          \begin{block}{Block Colours}
-            For the standard blocks there are two colours; one for the title and one for the block body:\\
-            \begin{semiverbatim}
-              {\color{red}\\setbeamercolor}\{block title\}\newline \{fg=red,bg=white\}
-            \end{semiverbatim}
-            \begin{semiverbatim}
-              {\color{red}\\setbeamercolor}\{block  body\}\newline \{fg=black,bg=white\}
-            \end{semiverbatim}
-            The \emph{fg} colour sets the text colour and \emph{bg} sets the background colour.
-            For the normal blocks it makes no sense to use a background colour other than white. You \emph{can} change it, but it will look weird!
-            \begin{figure}
-              \begin{center}
-                \includegraphics[width=10in]{g_relations.jpg} \\
-                \caption{A correctable subsystem, depicted as a sub-block of the operators acting on the Hilbert space. To correct the error, project onto one of the three resulting sub-blocks and then conjugate by a unitary.}
-                \label{fig:corrSubsys}
-              \end{center}
-            \end{figure}
-          \end{block}
-        \end{column}
-        \begin{column}{\onecolwid}
-          \setbeamercolor{block alerted title}{fg=black,bg=norange}	% frame color
-          \setbeamercolor{block alerted body}{fg=black,bg=white}		% body color
-          \begin{alertblock}{Alert Block Colours}
-            You can similarly modify the colours for alert blocks (but try not to overdo it):\\
-            \begin{semiverbatim}
-              {\color{red}\\setbeamercolor}\{block title\}\newline \{fg=black,bg=norange\}
-            \end{semiverbatim}
-            \begin{semiverbatim}
-              {\color{red}\\setbeamercolor}\{block  body\}\newline \{fg=black,bg=white\}
-            \end{semiverbatim}
-          \end{alertblock}        
-        \end{column}
-        \begin{column}{\onecolwid}
-          \begin{block}{References}
-            Some references and a graphic to show you how it's done:
-            
-		        \small{\begin{thebibliography}{99}
-		        \bibitem{KLPL06} D.~W. Kribs, R. Laflamme, D. Poulin, M. Lesosky, Quantum Inf. \& Comp. \textbf{6} (2006), 383-399.
-		        \bibitem{zanardi97} P. Zanardi, M. Rasetti, Phys. Rev. Lett. \textbf{79},  3306 (1997).
-		        \end{thebibliography}}
-			      \vspace{0.75in}
-			      \begin{center}
-			        \includegraphics[width=3in]{qx.png}
-			      \end{center}
-		      \end{block}
-        \end{column}
-      \end{columns}
-      \vskip2.5ex
+
+      \begin{block}{Equivalence sets}
+        To come up with the equivalence sets for the classes,
+        \begin{itemize}
+          \item calculate the classes necessary for each part, starting from the
+            part's \textit{"include"} config.
+          \item for each class in the built, collect the set of parts which
+            require this class.
+          \item group classes that are required by the same set of parts.
+        \end{itemize}
+        For example, if you have defined parts "One" and "Two", there will be
+        (at most) tree equivalence sets: One set of classes that are required by
+        exactly part "One", one set of classes that are required by exactly part
+        "Two", and one set of classes that are required by both ["One", "Two"].
+
+        The maximum number of equivalence classes can be expressed as the
+        binomail coefficient ${ {N}\choose{k}}$, but for a particular built
+        there might be less.
+        (TODO).
+      \end{block}
+
     \end{column}
-  \begin{column}{\sepwid}\end{column}			% empty spacer column
- \end{columns}
+
+    % column 3
+
+    \begin{column}{\sepwid}\end{column}			% empty spacer column
+    \begin{column}{\onecolwid}
+      \begin{block}{Conditions for Package Collapsing}
+        When collapsing two packages, one is the receiving package to which the
+        classes of the second are added, and the other which yields its classes
+        and is then removed from the list of packages. For this to succeed, a
+        number of constraints have to be observed, or the package calculation
+        will result in faulty packages (i.e. packages which will not load
+        cleanly in the browser e.g. because of unresolved symbols).
+        \begin{itemize}
+          \item the receiving package must be loaded for \textit{at least} the
+            same parts as the yielding package (i.e. the equivalence class of
+            the yielding package must be a subset of that of the receiving
+            package)
+          \item all load-time dependencies of each class of a package must be
+            \textit{within} this package (in load order), or must be in packages
+            that are loaded earlier at runtime (TODO)
+          \item in all parts where the second package would have been loaded,
+            now the first package must be loaded in its place (this might result
+            in unnecessary classes being loaded for that part, which is a
+            trade-off)
+        \end{itemize}
+      \end{block}
+
+    \end{column}
+
+    % column 4
+
+    \begin{column}{\sepwid}\end{column}			% empty spacer column
+    \begin{column}{\onecolwid}
+      \begin{block}{References}
+        Some references and a graphic to show you how it's done:
+        
+        \small{\begin{thebibliography}{99}
+        \bibitem{KLPL06} D.~W. Kribs, R. Laflamme, D. Poulin, M. Lesosky, Quantum Inf. \& Comp. \textbf{6} (2006), 383-399.
+        \bibitem{zanardi97} P. Zanardi, M. Rasetti, Phys. Rev. Lett. \textbf{79},  3306 (1997).
+        \end{thebibliography}}
+        \vspace{0.75in}
+        \begin{center}
+          \includegraphics[width=3in]{qx.png}
+        \end{center}
+      \end{block}
+    \end{column}
+
+  \end{columns}
 \end{frame}
 \end{document}
