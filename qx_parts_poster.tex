@@ -8,7 +8,6 @@
 \documentclass[final]{beamer}
 \usepackage[scale=1.24]{beamerposter}
 \usepackage{graphicx}			% allows us to import images
-\usepackage{verbatim}
 
 %-----------------------------------------------------------
 % Define the column width and poster size
@@ -31,6 +30,8 @@
 \setlength{\topmargin}{-0.5in}
 \usetheme{confposter}
 \usepackage{exscale}
+\usepackage{verbatim}
+\usepackage{fancyvrb}
 
 %-----------------------------------------------------------
 % The next part fixes a problem with figure numbering. Thanks Nishan!
@@ -61,8 +62,7 @@
 %-----------------------------------------------------------
 
 \title{Part Handling in qooxdoo 3}
-\author{Thomas Herchenr\"oder}
-\institute{1\&1 Internet AG}
+\institute{Thomas Herchenr\"oder, 1\&1 Internet AG (\today)}
 
 %-----------------------------------------------------------
 % Start the poster itself
@@ -94,7 +94,7 @@
         \begin{figure}
           \begin{center}
             \includegraphics[width=10in]{g_relations.png} \\
-            \caption{Relations between parts, packages, scripts and classes.}
+            \caption{Relations between parts, packages, scripts and classes}
             \label{fig:corrSubsys}
           \end{center}
         \end{figure}
@@ -102,10 +102,10 @@
 
 
       \begin{block}{Configuring Parts}
-        What to put in the \textit{include} key of the part definitions.
-        "include list" means all entries after glob expansion.
+        Specifying the \textit{include} key of the part definitions.
+        (\textit{``include list''} means all entries after glob expansion.)
         \begin{itemize}
-          \item the \textit{boot} part should have the same include definition
+          \item the \textit{boot} part should have \textit{the same} include definition
             as the application
           \item include lists must be \textit{free of overlaps}
           \item \textit{load dependencies} of one part must not be in include lists of
@@ -129,7 +129,6 @@
             spaces, libraries, ...)
           \item don't define parts with \textit{framework classes}
         \end{itemize}
-        Some of these criteria a checked by the Generator.
       \end{block}
 
       \begin{block}{2-Phase Package Calculation}
@@ -139,19 +138,23 @@
             same set of parts
           \item \textbf{merging} (or collapsing) resolve smaller packages into
             larger ones
+            \begin{itemize}
+              \item by order (\textit{collapse groups})
+              \item by size
+            \end{itemize}
         \end{itemize}
       \end{block}
     \end{column}
 
     \begin{column}{\sepwid}\end{column}			% empty spacer column
     \begin{column}{\onecolwid}
-      \begin{block}{Equivalence sets}
+      \begin{block}{Equivalence Sets}
         To construct the equivalence sets for the classes:
         \begin{itemize}\justifying
-          \item calculate the class list for each part (starting from the
-            part's \textit{include} config)
-          \item assigne each class the parts which require it
-          \item group classes that are required by the same parts
+          \item \textbf{part class list}: calculate the class list starting from
+            part's \textit{include}, skipping other seeds
+          \item \textbf{class labeling}: assigne each class the parts which require it
+          \item \textbf{classify}: group classes that are required by the same parts
         \end{itemize}
         If $N$ is the number of defined parts then\\
         \begin{center}
@@ -167,7 +170,7 @@
     \begin{figure}   % ACTUAL two-column-wide column
       \begin{center}
         \includegraphics[width=20in]{g_part_layers.png} \\
-        \caption{Mapping parts to classes, and classes to packages.}
+        \caption{Mapping parts to classes, and classes to packages}
         \label{fig:corrSubsys}
       \end{center}
     \end{figure}
@@ -180,7 +183,7 @@
         \begin{itemize}
           \item parts are \textbf{lazy run deps}
           \item each part is \textbf{self-contained} \textit{wrt} load deps 
-          \item this is also true for \textit{collapsePartsByOrder}, parts
+          \item this is also true for \textit{expected-load-order}, parts
             can be loaded out-of-order
           \item every class is only loaded \textbf{once}
           \item classes are \textbf{load-ordered} within a package, packages are
@@ -212,132 +215,37 @@
     \begin{column}{\onecolwid}
 
       \begin{block}{Package Dependencies}
-        If classes $c1, c2$ and packages $p1, p2$, then\\
-        \begin{center}
-          $if\ c1 \in p1\ and\ c2 \in p2\ and\ depends(c1,c2) \Rightarrow
-          depends(p1,p2)$
-        \end{center}
+        Classes $c_1, c_2$, packages $p_1, p_2$, part $P_1$, then
+        \begin{itemize}
+          \item $if\ c_1 \in p_1\ and\ c_2 \in p_2\ and\ depends(c_1,c_2) \Rightarrow
+            depends(p_1,p_2)$
+          \item $ordered(P_1) \Leftrightarrow ordered(Packages(P_1))\ and\ 
+            \forall P \in Packages(P_1): ordered(P)$
+        \end{itemize}
       \end{block}
 
       \begin{block}{Package Merging}
-        Classes from the yielding package are added to the receiving package.
-        The yielding package is removed. 
-        Let $p1$ be a package for merging into $p2$, $P(x)$ be
-        the set of parts a package is used in, $Deps(x)$ be the depedencies of
+        Let $p_1$ be package for merging into $p_2$, $Parts(x)$ be
+        the set of parts a package is used in, $Deps(x)$ be the load depedencies of
         a class or package, then
         \begin{itemize}
-          \item $P(p1) \subset P(p2)$  [$p2$ must at least be used where $p1$ is
+          \item Classes($p_1$) go into $p_2$, $p_1$ is removed
+          \item $Parts(p_1) \subset Parts(p_2)$  [$p_2$ must at least be used where $p_1$ is
             used]
-          \item after the merge: $for\_each\_class\ c \in p1: Deps(c) \subset p1\ and\ 
-            ordered(p1)$
-          \item $replace(p1, p2)\ in\ all\ P(p1)$ [use $p2$ in all parts where $p1$ was
-            used]
+          \item after the merge: $\forall P \in Parts(p_2): ordered(P)$
+          \item $\forall P \in Parts(p_2): Deps(p_1) \subset P$
+            [dependencies of $p_1$ must be fullfilled wherever $p_2$ is used]
+          \item \textit{expected-load-order} more aggressive merging
+          \item classes will be loaded where not needed
+          \item \textit{parts verifier} checks these constraints
         \end{itemize}
-        This is done with \textit{names}, no code is shuffled around.
-        Merging can be more aggressive if \textit{collapsePartsByOrder} is given
-        in config.
-
-        Package calculation log (Feedreader):
-
-        \tiny\begin{verbatim}
-          >>> Creating part structures...
-            - Part \#addfeed => 1
-            - Part \#boot => 2
-            - Part \#settings => 4
-
-          >>> Assembling parts
-            - part addfeed  
-            - Part \#addfeed depends on 245 classes
-            - part boot  
-            - Part \#boot depends on 364 classes
-            - part settings  
-            - Part \#settings depends on 274 classes
-
-          >>> Package summary : 6 packages
-            - Package \#7 contains 228 classes
-            - [<Class:qx.module.Animation>, <Class:qx.ui.layout.Atom>, <Class:qx.bom.clien
-            - Package \#7 depends on these packages: []
-            - Package \#6 contains 23 classes
-            - [<Class:qx.io.PartLoader>, <Class:qx.bom.request.Script>, <Class:qx.io.part.
-            - Package \#6 depends on these packages: ['7']
-            - Package \#5 contains 4 classes
-            - [<Class:qx.ui.form.IColorForm>, <Class:qx.ui.form.Resetter>, <Class:qx.ui.fo
-            - Package \#5 depends on these packages: ['7']
-            - Package \#4 contains 19 classes
-            - [<Class:qx.ui.form.RadioGroup>, <Class:qx.ui.form.RadioButton>, <Class:qx.th
-            - Package \#4 depends on these packages: ['5', '6', '7']
-            - Package \#2 contains 113 classes
-            - [<Class:qx.ui.splitpane.Pane>, <Class:qx.ui.toolbar.Part>, <Class:qx.theme.I
-            - Package \#2 depends on these packages: ['6', '7']
-            - Package \#1 contains 13 classes
-            - [<Class:qx.ui.form.renderer.IFormRenderer>, <Class:qx.util.Validate>, <Class
-            - Package \#1 depends on these packages: ['7']
-
-          >>> Part summary : 3 parts
-            - Part \#addfeed packages(3): \#7, \#5, \#1
-            - Part \#boot packages(3): \#7, \#6, \#2
-            - Part \#settings packages(4): \#7, \#5, \#6, \#4
-
-            - Total of packages used in parts: 10
-
-          >>> Collapsing parts  
-
-          >>> Collapsing parts by collapse order...
-            - Collapse group 0 [u'boot']
-              - collapsing unique packages...
-                - Search a target package for package \#2
-                  - Merge package \#2 into \#6
-                    - Adding packages dependencies to target package: ['7']
-                    - Target package \#6 now depends on: ['7']
-                - Search a target package for package \#6
-                  - Merge package \#6 into \#7
-                    - Adding packages dependencies to target package: []
-                    - Target package \#7 now depends on: []
-                - Search a target package for package \#7
-                - Search a target package for package \#7
-              - collapsing common packages...
-                - Search a target package for package \#7
-
-          >>> Collapsing parts by package sizes...
-            - Minimum size: 10KB
-              - Package \#4: 210KB
-              - Package \#1: 102KB
-              - Package \#5: 12KB
-              - Package \#7: 3266KB
-
-          >>> Package summary : 4 packages
-            - Package \#7 contains 364 classes
-            - [<Class:qx.module.Animation>, <Class:qx.ui.layout.Atom>, <Class:qx.bom.clien
-            - Package \#7 depends on these packages: []
-            - Package \#5 contains 4 classes
-            - [<Class:qx.ui.form.IColorForm>, <Class:qx.ui.form.Resetter>, <Class:qx.ui.fo
-            - Package \#5 depends on these packages: ['7']
-            - Package \#4 contains 19 classes
-            - [<Class:qx.ui.form.RadioGroup>, <Class:qx.ui.form.RadioButton>, <Class:qx.th
-            - Package \#4 depends on these packages: ['5', '7']
-            - Package \#1 contains 13 classes
-            - [<Class:qx.ui.form.renderer.IFormRenderer>, <Class:qx.util.Validate>, <Class
-            - Package \#1 depends on these packages: ['7']
-
-          >>> Part summary : 3 parts
-            - Part \#addfeed packages(3): \#7, \#5, \#1
-            - Part \#boot packages(1): \#7
-            - Part \#settings packages(3): \#7, \#5, \#4
-
-            - Total of packages used in parts: 7
-
-          >>> Verifying parts  
-            - Verifying packages-to-parts relations...
-            - Verifying individual parts...
-            - Part: addfeed
-            - Part: boot
-            - Part: settings
-        \end{verbatim}
-
-        \vspace{0.75in}
-        \begin{center}
-          \includegraphics[width=2in]{qx.png}
-        \end{center}
+        \begin{figure}
+          \begin{center}
+            \includegraphics[width=\onecolwid]{g_parts_log.png}
+            \caption{Part creation verbose output (excerpt)}
+            \label{fig:corrSubsys}
+          \end{center}
+        \end{figure}
       \end{block}
 
     \end{column}

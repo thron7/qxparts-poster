@@ -19,7 +19,7 @@
       <data key="d5"><![CDATA[UMLClass]]></data>
       <data key="d6">
         <y:UMLClassNode>
-          <y:Geometry height="28.0" width="100.0" x="372.0" y="85.0"/>
+          <y:Geometry height="28.0" width="100.0" x="329.0" y="85.0"/>
           <y:Fill color="#FFCC00" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
           <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="13" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="19.125" modelName="internal" modelPosition="t" textColor="#000000" visible="true" width="34.92578125" x="32.537109375" y="3.0">Part</y:NodeLabel>
@@ -35,7 +35,7 @@
       <data key="d5"><![CDATA[UMLClass]]></data>
       <data key="d6">
         <y:UMLClassNode>
-          <y:Geometry height="28.0" width="100.0" x="372.0" y="197.5"/>
+          <y:Geometry height="28.0" width="100.0" x="329.0" y="197.5"/>
           <y:Fill color="#FFCC00" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
           <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="13" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="19.125" modelName="internal" modelPosition="t" textColor="#000000" visible="true" width="65.546875" x="17.2265625" y="3.0">Package</y:NodeLabel>
@@ -51,7 +51,7 @@
       <data key="d5"><![CDATA[UMLClass]]></data>
       <data key="d6">
         <y:UMLClassNode>
-          <y:Geometry height="28.0" width="100.0" x="372.0" y="310.0"/>
+          <y:Geometry height="28.0" width="100.0" x="329.0" y="310.0"/>
           <y:Fill color="#FFCC00" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
           <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="13" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="19.125" modelName="internal" modelPosition="t" textColor="#000000" visible="true" width="47.4560546875" x="26.27197265625" y="3.0">Script</y:NodeLabel>
@@ -67,7 +67,7 @@
       <data key="d5"><![CDATA[UMLClass]]></data>
       <data key="d6">
         <y:UMLClassNode>
-          <y:Geometry height="28.0" width="100.0" x="372.0" y="422.5"/>
+          <y:Geometry height="28.0" width="100.0" x="329.0" y="422.5"/>
           <y:Fill color="#FFCC00" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
           <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="13" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="19.125" modelName="internal" modelPosition="t" textColor="#000000" visible="true" width="42.24462890625" x="28.877685546875" y="3.0">Class</y:NodeLabel>
@@ -95,10 +95,10 @@
           <y:Geometry height="70.0" width="157.0" x="116.0" y="199.75"/>
           <y:Fill color="#FFFFFF" transparent="false"/>
           <y:BorderStyle hasColor="false" type="line" width="1.0"/>
-          <y:NodeLabel alignment="left" autoSizePolicy="content" borderDistance="0.0" fontFamily="Dialog" fontSize="13" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="64.5" modelName="internal" modelPosition="c" textColor="#000000" visible="true" width="170.333984375" x="-6.6669921875" y="2.75">Load unit PartLoader;
-collection of code &amp; data 
+          <y:NodeLabel alignment="left" autoSizePolicy="content" borderDistance="0.0" fontFamily="Dialog" fontSize="13" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="64.5" modelName="internal" modelPosition="c" textColor="#000000" visible="true" width="175.40576171875" x="-9.202880859375" y="2.75">Load unit PartLoader
+(collection of code &amp; data 
 that should be loaded 
-together</y:NodeLabel>
+together)</y:NodeLabel>
           <y:Shape type="rectangle"/>
         </y:ShapeNode>
       </data>
@@ -121,7 +121,7 @@ together</y:NodeLabel>
           <y:Geometry height="25.0" width="157.0" x="116.0" y="311.5"/>
           <y:Fill color="#FFFFFF" transparent="false"/>
           <y:BorderStyle hasColor="false" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" borderDistance="0.0" fontFamily="Dialog" fontSize="13" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="19.125" modelName="internal" modelPosition="l" textColor="#000000" visible="true" width="139.33837890625" x="0.0" y="2.9375">Load unit HTTP (File)</y:NodeLabel>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" borderDistance="0.0" fontFamily="Dialog" fontSize="13" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="19.125" modelName="internal" modelPosition="l" textColor="#000000" visible="true" width="136.4375" x="0.0" y="2.9375">Load unit HTTP (file)</y:NodeLabel>
           <y:Shape type="rectangle"/>
         </y:ShapeNode>
       </data>
@@ -129,7 +129,7 @@ together</y:NodeLabel>
     <node id="n8">
       <data key="d6">
         <y:ShapeNode>
-          <y:Geometry height="19.0" width="20.0" x="429.0" y="113.0"/>
+          <y:Geometry height="19.0" width="20.0" x="386.0" y="113.0"/>
           <y:Fill color="#FFFFFF" transparent="false"/>
           <y:BorderStyle hasColor="false" type="line" width="1.0"/>
           <y:NodeLabel alignment="center" autoSizePolicy="content" borderDistance="0.0" fontFamily="Dialog" fontSize="13" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="19.125" modelName="internal" modelPosition="c" textColor="#000000" visible="true" width="19.3486328125" x="0.32568359375" y="-0.0625">.M</y:NodeLabel>
@@ -140,7 +140,7 @@ together</y:NodeLabel>
     <node id="n9">
       <data key="d6">
         <y:ShapeNode>
-          <y:Geometry height="19.0" width="20.0" x="429.0" y="178.5"/>
+          <y:Geometry height="19.0" width="20.0" x="386.0" y="178.5"/>
           <y:Fill color="#FFFFFF" transparent="false"/>
           <y:BorderStyle hasColor="false" type="line" width="1.0"/>
           <y:NodeLabel alignment="center" autoSizePolicy="content" borderDistance="0.0" fontFamily="Dialog" fontSize="13" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="19.125" modelName="internal" modelPosition="c" textColor="#000000" visible="true" width="17.85693359375" x="1.071533203125" y="-0.0625">.N</y:NodeLabel>
@@ -151,7 +151,7 @@ together</y:NodeLabel>
     <node id="n10">
       <data key="d6">
         <y:ShapeNode>
-          <y:Geometry height="19.0" width="20.0" x="430.0" y="225.5"/>
+          <y:Geometry height="19.0" width="20.0" x="387.0" y="225.5"/>
           <y:Fill color="#FFFFFF" transparent="false"/>
           <y:BorderStyle hasColor="false" type="line" width="1.0"/>
           <y:NodeLabel alignment="center" autoSizePolicy="content" borderDistance="0.0" fontFamily="Dialog" fontSize="13" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="19.125" modelName="internal" modelPosition="c" textColor="#000000" visible="true" width="16.4033203125" x="1.79833984375" y="-0.0625">.1</y:NodeLabel>
@@ -162,7 +162,7 @@ together</y:NodeLabel>
     <node id="n11">
       <data key="d6">
         <y:ShapeNode>
-          <y:Geometry height="19.0" width="20.0" x="430.0" y="338.0"/>
+          <y:Geometry height="19.0" width="20.0" x="387.0" y="338.0"/>
           <y:Fill color="#FFFFFF" transparent="false"/>
           <y:BorderStyle hasColor="false" type="line" width="1.0"/>
           <y:NodeLabel alignment="center" autoSizePolicy="content" borderDistance="0.0" fontFamily="Dialog" fontSize="13" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="19.125" modelName="internal" modelPosition="c" textColor="#000000" visible="true" width="16.4033203125" x="1.79833984375" y="-0.0625">.1</y:NodeLabel>
@@ -173,7 +173,7 @@ together</y:NodeLabel>
     <node id="n12">
       <data key="d6">
         <y:ShapeNode>
-          <y:Geometry height="19.0" width="20.0" x="437.0" y="403.5"/>
+          <y:Geometry height="19.0" width="20.0" x="394.0" y="403.5"/>
           <y:Fill color="#FFFFFF" transparent="false"/>
           <y:BorderStyle hasColor="false" type="line" width="1.0"/>
           <y:NodeLabel alignment="center" autoSizePolicy="content" borderDistance="0.0" fontFamily="Dialog" fontSize="13" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="19.125" modelName="internal" modelPosition="c" textColor="#000000" visible="true" width="30.26025390625" x="-5.130126953125" y="-0.0625">0..N</y:NodeLabel>
@@ -194,7 +194,7 @@ together</y:NodeLabel>
     <node id="n14">
       <data key="d6">
         <y:ShapeNode>
-          <y:Geometry height="19.0" width="20.0" x="430.0" y="291.0"/>
+          <y:Geometry height="19.0" width="20.0" x="387.0" y="291.0"/>
           <y:Fill color="#FFFFFF" transparent="false"/>
           <y:BorderStyle hasColor="false" type="line" width="1.0"/>
           <y:NodeLabel alignment="center" autoSizePolicy="content" borderDistance="0.0" fontFamily="Dialog" fontSize="13" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="19.125" modelName="internal" modelPosition="c" textColor="#000000" visible="true" width="17.85693359375" x="1.071533203125" y="-0.0625">.N</y:NodeLabel>
