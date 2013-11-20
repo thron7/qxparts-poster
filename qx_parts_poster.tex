@@ -61,7 +61,7 @@
 % Name and authors of poster/paper/research
 %-----------------------------------------------------------
 
-\title{Part Handling in qooxdoo 3}
+\title{Part Handling in qooxdoo}
 \institute{Thomas Herchenr\"oder, 1\&1 Internet AG (\today)}
 
 %-----------------------------------------------------------
@@ -125,7 +125,7 @@
     \begin{column}{\onecolwid}
       \begin{block}{}
         \begin{itemize}
-          \item don't define include lists along \textit{physically boundaries} (name
+          \item don't define include lists along \textit{physical boundaries} (name
             spaces, libraries, ...)
           \item don't define parts with \textit{framework classes}
         \end{itemize}
@@ -153,7 +153,7 @@
         \begin{itemize}\justifying
           \item \textbf{part class list}: calculate the class list starting from
             part's \textit{include}, skipping other seeds
-          \item \textbf{class labeling}: assigne each class the parts which require it
+          \item \textbf{class labeling}: assign each class the parts which require it
           \item \textbf{classify}: group classes that are required by the same parts
         \end{itemize}
         If $N$ is the number of defined parts then\\
@@ -196,10 +196,14 @@
     \begin{column}{\onecolwid}
       \begin{block}{References}
         \small{\begin{thebibliography}{99}
-          \bibitem P``Parts and Packages Overview'', qooxdoo Manual, http://bit.ly/1hL6cqU
-          \bibitem U``Using Parts'', qooxdoo Manual, http://bit.ly/17y8MMH
-          \bibitem G``Generator Config Keys - packages'', qooxdoo Manual, http://bit.ly/177sNXW 
-          \bibitem qqx.io.PartLoader, qooxdoo API, http://bit.ly/1cvQM2Q 
+          \bibitem P``Parts and Packages Overview'', qooxdoo Manual,
+            {\scriptsize http://manual.qooxdoo.org/3.0.x/pages/development/parts\_overview.html}
+          \bibitem U``Using Parts'', qooxdoo Manual,
+            {\scriptsize http://manual.qooxdoo.org/3.0.x/pages/development/parts\_using.html}
+          \bibitem G``Generator Config Keys - packages'', qooxdoo Manual,
+            {\scriptsize http://manual.qooxdoo.org/3.0.x/pages/tool/generator/generator\_config\_ref.html\#packages}
+          \bibitem qqx.io.PartLoader, qooxdoo API,
+            {\scriptsize http://demo.qooxdoo.org/3.0.x/apiviewer/index.html\#qx.io.PartLoader}
         \end{thebibliography}}
       \end{block}
 
@@ -215,17 +219,17 @@
     \begin{column}{\onecolwid}
 
       \begin{block}{Package Dependencies}
-        Classes $c_1, c_2$, packages $p_1, p_2$, part $P_1$, then
+        Classes $c_1, c_2$, packages $p$, $p_1, p_2$, part $P_1$, then
         \begin{itemize}
           \item $if\ c_1 \in p_1\ and\ c_2 \in p_2\ and\ depends(c_1,c_2) \Rightarrow
             depends(p_1,p_2)$
           \item $ordered(P_1) \Leftrightarrow ordered(Packages(P_1))\ and\ 
-            \forall P \in Packages(P_1): ordered(P)$
+            \forall p \in Packages(P_1): ordered(p)$
         \end{itemize}
       \end{block}
 
       \begin{block}{Package Merging}
-        Let $p_1$ be package for merging into $p_2$, $Parts(x)$ be
+        Let $p_1$ be a package for merging into $p_2$, $Parts(x)$ be
         the set of parts a package is used in, $Deps(x)$ be the load depedencies of
         a class or package, then
         \begin{itemize}
@@ -234,10 +238,10 @@
             used]
           \item after the merge: $\forall P \in Parts(p_2): ordered(P)$
           \item $\forall P \in Parts(p_2): Deps(p_1) \subset P$
-            [dependencies of $p_1$ must be fullfilled wherever $p_2$ is used]
-          \item \textit{expected-load-order} more aggressive merging
-          \item classes will be loaded where not needed
-          \item \textit{parts verifier} checks these constraints
+            [dependencies of $p_1$ must be fulfilled wherever $p_2$ is used]
+          \item \textit{expected-load-order} allows more aggressive merging
+          \item some classes will be loaded where not needed
+          \item the \textit{parts verifier} checks these constraints
         \end{itemize}
         \begin{figure}
           \begin{center}
