@@ -116,8 +116,8 @@
           \item In the \textit{size} phase, packages are selected by size, i.e.
             packages below a configurable threshold are set up for merging. This
             is to avoid packages that are too small.
-          \item The phase where packages are selected by \textit{load order} is
-            more complicated (see its own section).
+          \item The selection in the \textit{load order} phase is more
+            complicated (see later). The aim is to have fewer packages to load.
         \end{itemize}
       \end{block}
 
@@ -146,10 +146,11 @@
 
       \begin{block}{Target Package Selection}
         The following conditions have to be met for a package to be eligible as a
-        target for a package merge. 
+        merge target.
         \begin{itemize}
           \item $Parts(p_s) \subset Parts(p_t)$ [ this assures the classes of
             $p_s$ remain avaiable wherever they are needed ]
+          \item ???
         \end{itemize}
       \end{block}
 
@@ -160,10 +161,9 @@
 
         \begin{itemize}
           \item By using the \textit{expected-load-order} configuration key the
-            user groups together parts (\textit{load groups}) where the parts
-            with a lower number are expected to be loaded earlier.
-          \item A specific load-order number can be assigned to only one part,
-            which means the load group only consists of this single part.
+            user groups together parts (\textit{load groups}) where the number
+            indicates the expected load order.
+          \item As a corner case, a load group can consist of a single part.
           \item Without this configuration key, or within a single group, no
             load order is assumed.
           \item This allows more aggressive package merging ...
@@ -183,9 +183,9 @@
             merged.
           \item Target packages are only used \textbf{once}. This is to avoid
             ``monster packages''.
-          \item The \textit{boot} part is always merged this way by default. It
-            is assigned load order number \textit{1} which cannot be assigned to
-            any other load group.
+          \item The \textit{boot} part is always load order-merged by default. It
+            has load order number \textit{0} which cannot be assigned to any
+            other load group.
           \item Parts which are not in any load group are not actively
             collapsed. (They are still affected by package changes if packages
             they use are merged).
@@ -218,9 +218,9 @@
     \begin{column}{\onecolwid}
 
       \begin{block}{Merging by Load Order (cont.)}
-        Load-order merging \textit{does not} destroy the ability to load parts
-        in arbitrary order. It just means that if parts are loaded out of order,
-        a larger number of unused classes will be loaded with the required
+        Load-order merging \textbf{does not} destroy the ability to load parts
+        \textit{in arbitrary order}. But if parts are loaded out of order
+        a larger number of unneeded classes will be loaded with the required
         packages.
       \end{block}
 
