@@ -307,7 +307,7 @@
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0">
             <y:Point x="490.5" y="-2.25"/>
           </y:Path>
-          <y:LineStyle color="#FFCC99" type="line" width="1.0"/>
+          <y:LineStyle color="#008000" type="line" width="1.0"/>
           <y:Arrows source="none" target="standard"/>
           <y:Arc height="-58.25" ratio="-0.6873156428337097" type="fixedRatio"/>
         </y:ArcEdge>
@@ -373,7 +373,7 @@
           <y:Path sx="0.0" sy="-15.0" tx="0.0" ty="0.0">
             <y:Point x="374.9225769042969" y="224.0833282470703"/>
           </y:Path>
-          <y:LineStyle color="#FFCC99" type="line" width="1.0"/>
+          <y:LineStyle color="#008000" type="line" width="1.0"/>
           <y:Arrows source="none" target="standard"/>
           <y:EdgeLabel alignment="center" distance="2.0" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" hasText="false" height="4.0" modelName="six_pos" modelPosition="ttail" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" visible="true" width="4.0" x="-87.84521484375" y="4.471213159408222"/>
           <y:Arc height="-19.58698844909668" ratio="-0.6873156428337097" type="fixedRatio"/>
@@ -449,7 +449,7 @@
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
-          <y:LineStyle color="#FFCC99" type="line" width="1.0"/>
+          <y:LineStyle color="#008000" type="line" width="1.0"/>
           <y:Arrows source="none" target="standard"/>
           <y:BendStyle smoothed="false"/>
         </y:PolyLineEdge>

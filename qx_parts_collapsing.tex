@@ -94,7 +94,7 @@
         be the source and $p_t$ the target package, then
         \begin{itemize}
           \item within a part, start with the \textit{last} package in the
-            (dependency-sorte) package list
+            (dependency-sorted) package list
           \item iteratively check each package further up the list if it is a
             suitable merge target
           \item if found, add $Classes(p_s)$ to $Classes(p_t)$, maintaining load
@@ -149,8 +149,7 @@
         merge target.
         \begin{itemize}
           \item $Parts(p_s) \subset Parts(p_t)$ [ this assures the classes of
-            $p_s$ remain avaiable wherever they are needed ]
-          \item ???
+            $p_s$ remain available wherever they are needed ]
         \end{itemize}
       \end{block}
 
@@ -182,7 +181,7 @@
           \item Then, packages \textit{common} among the parts of the load group are
             merged.
           \item Target packages are only used \textbf{once}. This is to avoid
-            ``monster packages''.
+            ``monster'' packages.
           \item The \textit{boot} part is always load order-merged by default. It
             has load order number \textit{0} which cannot be assigned to any
             other load group.
