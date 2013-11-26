@@ -180,8 +180,8 @@
         \begin{itemize}
           \item Then, packages \textit{common} among the parts of the load group are
             merged.
-          \item Target packages are only used \textbf{once}. This is to avoid
-            ``monster'' packages.
+          \item Target packages in one load group become \textbf{closed} for
+            subsequent groups. This is to avoid ``monster'' packages.
           \item The \textit{boot} part is always load order-merged by default. It
             has load order number \textit{0} which cannot be assigned to any
             other load group.
@@ -226,8 +226,8 @@
       \vskip2ex
       \begin{block}{Questions}
         \begin{itemize}
-          \item The condition for a target package is trivially true in the
-            sorted list of part packages. Why?
+          \item Is the condition for a target package trivially true for all
+            ``larger'' packages in a part?
           \item Parts which don't belong to any load group are not processed in
             the load-order phase. Why?
           \item Whithin a load group, why are unique packages processed first,
